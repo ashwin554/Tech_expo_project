@@ -1,6 +1,10 @@
 import { LayoutGrid, Users, Zap, Box, BarChart3, Settings, HelpCircle, FileText } from 'lucide-react';
 
-export function Sidebar() {
+interface SidebarProps {
+    onNewAgentClick?: () => void;
+}
+
+export function Sidebar({ onNewAgentClick }: SidebarProps) {
     return (
         <div className="w-64 border-r border-gray-200 bg-white h-screen flex flex-col font-sans">
             <div className="p-6">
@@ -11,7 +15,10 @@ export function Sidebar() {
             </div>
 
             <div className="px-4 mb-6">
-                <button className="w-full flex items-center gap-2 bg-white border border-gray-300 rounded-md py-2 px-4 text-sm font-medium hover:bg-gray-50 text-gray-700 shadow-sm">
+                <button
+                    onClick={onNewAgentClick}
+                    className="w-full flex items-center gap-2 bg-white border border-gray-300 rounded-md py-2 px-4 text-sm font-medium hover:bg-gray-50 text-gray-700 shadow-sm transition-colors active:bg-gray-100"
+                >
                     <span className="text-lg leading-none">+</span> New agent
                 </button>
             </div>

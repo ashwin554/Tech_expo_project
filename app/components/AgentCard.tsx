@@ -7,9 +7,10 @@ interface AgentCardProps {
     description: string;
     lastRun?: string;
     icons?: React.ReactNode[];
+    workflowUrl?: string;
 }
 
-export function AgentCard({ name, status, statusColor = 'gray', description, lastRun, icons }: AgentCardProps) {
+export function AgentCard({ name, status, statusColor = 'gray', description, lastRun, icons, workflowUrl }: AgentCardProps) {
     return (
         <div className="bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow p-5 flex flex-col h-full">
             <div className="flex justify-between items-start mb-2">
@@ -19,14 +20,22 @@ export function AgentCard({ name, status, statusColor = 'gray', description, las
                 </h3>
                 <div className="flex items-center gap-2">
                     <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${status === 'Published'
-                            ? 'bg-green-100 text-green-700'
-                            : 'bg-gray-100 text-gray-600'
+                        ? 'bg-green-100 text-green-700'
+                        : 'bg-gray-100 text-gray-600'
                         }`}>
                         {status}
                     </span>
-                    <button className="text-gray-400 hover:text-gray-600">
-                        <MoreVertical className="w-4 h-4" />
-                    </button>
+                    {workflowUrl && (
+                        <a
+                            href={workflowUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-gray-400 hover:text-indigo-600 transition-colors p-1"
+                            title="Open in n8n"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                        </a>
+                    )}
                 </div>
             </div>
 

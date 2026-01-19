@@ -101,7 +101,7 @@ export default function Dashboard() {
 
   return (
     <div className="flex h-screen bg-[#F9FAFB] text-slate-800 font-sans tracking-tight">
-      <Sidebar />
+      <Sidebar onNewAgentClick={() => { setIsModalOpen(true); setModalMode('ai'); }} />
 
       <main className="flex-1 overflow-auto">
         <header className="px-10 py-8 flex justify-between items-center bg-white border-b border-gray-100 shadow-sm sticky top-0 z-10">
@@ -163,6 +163,7 @@ export default function Dashboard() {
                   description={agent.description}
                   lastRun={agent.lastRun}
                   icons={agent.icons?.map((i: string) => <span key={i}>{i}</span>)}
+                  workflowUrl={`http://localhost:5678/workflow/${agent.id}`}
                 />
               ))}
               {agents.length === 0 && (
