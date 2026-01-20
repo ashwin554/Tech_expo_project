@@ -1511,5 +1511,252 @@
       "triggerCount": 0
     },
     "status": 200
+  },
+  {
+    "timestamp": "2026-01-20T04:44:04.172Z",
+    "request": {
+      "name": "Daily YouTube Search and Emailer",
+      "nodes": [
+        {
+          "id": "18f94e24-4f3e-4861-9f93-13833b37a1c7",
+          "name": "Daily Schedule",
+          "type": "n8n-nodes-base.scheduleTrigger",
+          "typeVersion": 1,
+          "position": [
+            100,
+            100
+          ],
+          "parameters": {
+            "rule": {
+              "interval": [
+                {
+                  "triggerAtHour": 9
+                }
+              ]
+            }
+          },
+          "credentials": {}
+        },
+        {
+          "id": "7a151d9e-1f2a-4c8d-b778-0111f18579d4",
+          "name": "Search YouTube",
+          "type": "n8n-nodes-base.httpRequest",
+          "typeVersion": 4,
+          "position": [
+            350,
+            100
+          ],
+          "parameters": {
+            "url": "https://www.googleapis.com/youtube/v3/search",
+            "method": "GET",
+            "queryParameters": {
+              "q": "Hello kitty",
+              "part": "snippet"
+            },
+            "authentication": "none"
+          },
+          "credentials": {}
+        },
+        {
+          "id": "0f62d1d0-b28e-4a7a-b44c-352293b6e82c",
+          "name": "Count Search Results",
+          "type": "n8n-nodes-base.code",
+          "typeVersion": 2,
+          "position": [
+            600,
+            100
+          ],
+          "parameters": {
+            "jsCode": "// Mocking the YouTube API response analysis.\n// Assuming $json contains the API response.\n\n// MOCK DATA: Set a dummy result count for demonstration\nconst totalResults = 752; \n\n// In a real scenario, you would extract this from $json.pageInfo.totalResults\nreturn [{ json: { resultCount: totalResults } }];"
+          },
+          "credentials": {}
+        },
+        {
+          "id": "3b29c0f9-d5e1-4c1d-b892-23c34f3c7e8a",
+          "name": "Send Notification Email",
+          "type": "n8n-nodes-base.httpRequest",
+          "typeVersion": 4,
+          "position": [
+            850,
+            100
+          ],
+          "parameters": {
+            "url": "https://api.emailservice.com/send",
+            "method": "POST",
+            "jsonBody": "={ \"to\": \"abc@gmail.com\", \"subject\": \"Daily Hello Kitty YouTube Search Results\", \"body\": \"Total results found: {{$json.resultCount}}\" }",
+            "authentication": "none"
+          },
+          "credentials": {}
+        }
+      ],
+      "connections": {
+        "Daily Schedule": {
+          "main": [
+            [
+              {
+                "node": "Search YouTube",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "Search YouTube": {
+          "main": [
+            [
+              {
+                "node": "Count Search Results",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "Count Search Results": {
+          "main": [
+            [
+              {
+                "node": "Send Notification Email",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        }
+      },
+      "settings": {
+        "executionOrder": "v1"
+      }
+    },
+    "response": {
+      "name": "Daily YouTube Search and Emailer",
+      "nodes": [
+        {
+          "id": "18f94e24-4f3e-4861-9f93-13833b37a1c7",
+          "name": "Daily Schedule",
+          "type": "n8n-nodes-base.scheduleTrigger",
+          "typeVersion": 1,
+          "position": [
+            100,
+            100
+          ],
+          "parameters": {
+            "rule": {
+              "interval": [
+                {
+                  "triggerAtHour": 9
+                }
+              ]
+            }
+          },
+          "credentials": {}
+        },
+        {
+          "id": "7a151d9e-1f2a-4c8d-b778-0111f18579d4",
+          "name": "Search YouTube",
+          "type": "n8n-nodes-base.httpRequest",
+          "typeVersion": 4,
+          "position": [
+            350,
+            100
+          ],
+          "parameters": {
+            "url": "https://www.googleapis.com/youtube/v3/search",
+            "method": "GET",
+            "queryParameters": {
+              "q": "Hello kitty",
+              "part": "snippet"
+            },
+            "authentication": "none"
+          },
+          "credentials": {}
+        },
+        {
+          "id": "0f62d1d0-b28e-4a7a-b44c-352293b6e82c",
+          "name": "Count Search Results",
+          "type": "n8n-nodes-base.code",
+          "typeVersion": 2,
+          "position": [
+            600,
+            100
+          ],
+          "parameters": {
+            "jsCode": "// Mocking the YouTube API response analysis.\n// Assuming $json contains the API response.\n\n// MOCK DATA: Set a dummy result count for demonstration\nconst totalResults = 752; \n\n// In a real scenario, you would extract this from $json.pageInfo.totalResults\nreturn [{ json: { resultCount: totalResults } }];"
+          },
+          "credentials": {}
+        },
+        {
+          "id": "3b29c0f9-d5e1-4c1d-b892-23c34f3c7e8a",
+          "name": "Send Notification Email",
+          "type": "n8n-nodes-base.httpRequest",
+          "typeVersion": 4,
+          "position": [
+            850,
+            100
+          ],
+          "parameters": {
+            "url": "https://api.emailservice.com/send",
+            "method": "POST",
+            "jsonBody": "={ \"to\": \"abc@gmail.com\", \"subject\": \"Daily Hello Kitty YouTube Search Results\", \"body\": \"Total results found: {{$json.resultCount}}\" }",
+            "authentication": "none"
+          },
+          "credentials": {}
+        }
+      ],
+      "connections": {
+        "Daily Schedule": {
+          "main": [
+            [
+              {
+                "node": "Search YouTube",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "Search YouTube": {
+          "main": [
+            [
+              {
+                "node": "Count Search Results",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "Count Search Results": {
+          "main": [
+            [
+              {
+                "node": "Send Notification Email",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        }
+      },
+      "settings": {
+        "executionOrder": "v1",
+        "callerPolicy": "workflowsFromSameOwner",
+        "availableInMCP": false
+      },
+      "active": false,
+      "versionId": "df564963-5499-403d-bcc6-14d09430812b",
+      "id": "aJpZCJLoLmaExxgf",
+      "description": null,
+      "staticData": null,
+      "meta": null,
+      "pinData": null,
+      "activeVersionId": null,
+      "updatedAt": "2026-01-20T04:44:03.358Z",
+      "createdAt": "2026-01-20T04:44:03.358Z",
+      "isArchived": false,
+      "versionCounter": 1,
+      "triggerCount": 0
+    },
+    "status": 200
   }
 ]

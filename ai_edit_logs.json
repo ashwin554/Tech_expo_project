@@ -40,5 +40,12 @@
     "userRequest": "can you add a web hook node to the graph",
     "response": "{\n  \"name\": \"agent-builder\",\n  \"nodes\": [\n    {\n      \"parameters\": {\n        \"jsCode\": \"function slugify(name) {\\n  return name\\n    .toLowerCase()\\n    .replace(/[^a-z0-9]+/g, \\\"-\\\")\\n    .replace(/(^-|-$)/g, \\\"\\\");\\n}\\n\\nconst agentInput = $json.body;\\n\\nif (!agentInput?.agentName) {\\n  throw new Error(\\\"agentName is required\\\");\\n}\\n\\nconst slug = slugify(agentInput.agentName);\\n\\n// This structure matches the n8n Public API v1 for creating a workflow\\nconst workflowData = {\\n  name: agentInput.agentName,\\n  nodes: [\\n    {\\n      id: \\\"webhook-node\\\",\\n      name: \\\"Webhook\\\",\\n      type: \\\"n8n-nodes-base.webhook\\\",\\n      typeVersion: 2,\\n      position: [0, 0],\\n      parameters: {\\n        httpMethod: \\\"POST\\\",\\n        path: slug,\\n        responseMode: \\\"onReceived\\\"\\n      }\\n    },\\n    {\\n      id: \\\"logic-node\\\",\\n      name: \\\"Logic\\\",\\n      type: \\\"n8n-nodes-base.code\\\",\\n      typeVersion: 2,\\n      position: [250, 0],\\n      parameters: {\\n        jsCode: `return [{",
     "success": true
+  },
+  {
+    "timestamp": "2026-01-20T04:44:44.670Z",
+    "workflowId": "aJpZCJLoLmaExxgf",
+    "userRequest": "create a node webhook",
+    "response": "{\n  \"name\": \"Daily YouTube Search and Emailer\",\n  \"nodes\": [\n    {\n      \"id\": \"18f94e24-4f3e-4861-9f93-13833b37a1c7\",\n      \"name\": \"Daily Schedule\",\n      \"type\": \"n8n-nodes-base.scheduleTrigger\",\n      \"typeVersion\": 1,\n      \"position\": [\n        100,\n        100\n      ],\n      \"parameters\": {\n        \"rule\": {\n          \"interval\": [\n            {\n              \"triggerAtHour\": 9\n            }\n          ]\n        }\n      },\n      \"credentials\": {}\n    },\n    {\n      \"id\": \"7a151d9e-1f2a-4c8d-b778-0111f18579d4\",\n      \"name\": \"Search YouTube\",\n      \"type\": \"n8n-nodes-base.httpRequest\",\n      \"typeVersion\": 4,\n      \"position\": [\n        350,\n        100\n      ],\n      \"parameters\": {\n        \"url\": \"https://www.googleapis.com/youtube/v3/search\",\n        \"method\": \"GET\",\n        \"queryParameters\": {\n          \"q\": \"Hello kitty\",\n          \"part\": \"snippet\"\n        },\n        \"authentication\": \"none\"\n      },\n      \"credentials\": {}\n    },\n    {\n      \"id\": \"0f62d1d0-b28e-4a7a-b44c-",
+    "success": true
   }
 ]
