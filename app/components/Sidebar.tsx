@@ -1,4 +1,5 @@
 import { LayoutGrid, Users, Zap, Box, BarChart3, Settings, HelpCircle, FileText } from 'lucide-react';
+import Link from 'next/link';
 
 interface SidebarProps {
     onNewAgentClick?: () => void;
@@ -24,18 +25,18 @@ export function Sidebar({ onNewAgentClick }: SidebarProps) {
             </div>
 
             <nav className="flex-1 px-4 space-y-1">
-                <a href="#" className="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md bg-gray-100 text-gray-900">
+                <Link href="/" className="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md bg-gray-100 text-gray-900">
                     <LayoutGrid className="w-4 h-4" />
                     My agents
-                </a>
-                <a href="#" className="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50">
+                </Link>
+                <Link href="#" className="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50">
                     <Users className="w-4 h-4" />
                     Shared with me
-                </a>
-                <a href="#" className="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50">
+                </Link>
+                <Link href="/activity" className="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50">
                     <Zap className="w-4 h-4" />
                     All activity
-                </a>
+                </Link>
             </nav>
 
             <div className="px-4 mt-8 pb-4">
@@ -55,14 +56,14 @@ export function Sidebar({ onNewAgentClick }: SidebarProps) {
             </div>
 
             <div className="px-4 py-4 border-t border-gray-100 space-y-1">
-                <a href="#" className="flex items-center gap-3 px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50">
+                <Link href="/whats-new" className="flex items-center gap-3 px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50">
                     <Zap className="w-4 h-4" />
                     What's new
-                </a>
-                <a href="#" className="flex items-center gap-3 px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50">
+                </Link>
+                <Link href="/data-usage" className="flex items-center gap-3 px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50">
                     <BarChart3 className="w-4 h-4" />
                     Data usage
-                </a>
+                </Link>
                 <a href="#" className="flex items-center gap-3 px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50">
                     <Box className="w-4 h-4" />
                     Install Chrome extension
